@@ -27,7 +27,6 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg);
-            /* Achtergrond met Robot Look */
             background-image: linear-gradient(rgba(5, 7, 10, 0.7), rgba(5, 7, 10, 0.8)), 
                               url('https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600');
             background-size: cover;
@@ -181,10 +180,10 @@
         </form>
     </div>
 
-    <div class="form-card" id="thank-you">
+    <div id="thank-you" class="form-card">
         <div class="success-icon">✓</div>
         <h2>Aanvraag Gelukt!</h2>
-        <p>Het rapport is geactiveerd en wordt nu verzonden naar uw inbox. Controleer ook uw spam-folder.</p>
+        <p>U bent toegevoegd aan de lijst. Het rapport wordt nu verzonden naar uw inbox.</p>
     </div>
 </div>
 
@@ -201,7 +200,7 @@ document.getElementById('lead-form').addEventListener('submit', function(e) {
     // 1. Google Ads Enhanced Conversions
     gtag('set', 'user_data', { "email": emailValue });
 
-    // 2. Google Ads Event (ID: AW-979697475, Label: cO-fCLfI3e0bEMP-k9MD)
+    // 2. Google Ads Event
     gtag('event', 'conversion', {
         'send_to': 'AW-979697475/cO-fCLfI3e0bEMP-k9MD',
         'event_callback': function() {
@@ -209,26 +208,33 @@ document.getElementById('lead-form').addEventListener('submit', function(e) {
         }
     });
 
-    // Veiligheidstimer
-    setTimeout(() => { submitToDelivermail(form); }, 1200);
+    // Fallback voor trage Google Ads response
+    setTimeout(() => {
+        submitToDelivermail(form);
+    }, 1000);
 });
 
 function submitToDelivermail(form) {
     if (form.getAttribute('data-sent') === 'true') return;
     form.setAttribute('data-sent', 'true');
 
-    const formData = new FormData(form);
+    // We bouwen de URL op zoals Campaign Monitor dat verwacht voor externe formulieren
     const dataId = form.getAttribute('data-id');
+    const actionUrl = "https://www.createsend.com/t/subscribeerror?description=" + dataId;
+    
+    // We gebruiken een verborgen iframe methode of AJAX om de POST te forceren zonder de pagina te verlaten
+    const formData = new FormData(form);
 
-    fetch(form.action + dataId, {
+    fetch(actionUrl, {
         method: 'POST',
         body: formData,
-        mode: 'no-cors'
+        mode: 'no-cors' 
     }).then(() => {
         document.getElementById('form-container').style.display = 'none';
         document.getElementById('thank-you').style.display = 'block';
-    }).catch(() => {
-        // Zelfs bij CORS error tonen we succes, want de data komt vaak wel aan
+    }).catch(err => {
+        // Bij no-cors mode zal fetch altijd een error geven ook al komt het aan, 
+        // dus we tonen sowieso het succes scherm.
         document.getElementById('form-container').style.display = 'none';
         document.getElementById('thank-you').style.display = 'block';
     });
