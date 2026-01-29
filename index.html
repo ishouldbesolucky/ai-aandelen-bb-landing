@@ -13,28 +13,202 @@
       gtag('config', 'AW-979697475', { 'allow_enhanced_conversions': true });
     </script>
 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #05070a; --card: rgba(15, 23, 42, 0.9); --primary: #3b82f6; --text: #f8fafc; }
-        body { font-family: sans-serif; background-color: var(--bg); background-image: linear-gradient(rgba(5, 7, 10, 0.7), rgba(5, 7, 10, 0.8)), url('https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600'); background-size: cover; background-position: center; background-attachment: fixed; color: var(--text); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { max-width: 1000px; width: 90%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
-        .hero-text { flex: 1; min-width: 320px; padding-right: 40px; }
-        .form-card { width: 400px; background: var(--card); padding: 45px; border-radius: 28px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        input { width: 100%; padding: 18px; background: rgba(10, 14, 20, 0.8); border: 1px solid #334155; border-radius: 12px; color: white; margin-bottom: 20px; box-sizing: border-box; }
-        button { width: 100%; padding: 20px; background: var(--primary); color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; }
-        #thank-you { display: none; text-align: center; }
+        :root {
+            --bg: #05070a;
+            --card: rgba(15, 23, 42, 0.85);
+            --primary: #3b82f6;
+            --accent: #60a5fa;
+            --text: #f8fafc;
+            --text-dim: #cbd5e1;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            /* De robot achtergrond afbeelding */
+            background-image: linear-gradient(rgba(5, 7, 10, 0.75), rgba(5, 7, 10, 0.85)), 
+                              url('https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 90%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 60px 0;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 320px;
+            padding-right: 60px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.8rem;
+            font-weight: 900;
+            line-height: 1.05;
+            margin-bottom: 24px;
+            background: linear-gradient(to right, #ffffff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            font-size: 1.35rem;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+            max-width: 550px;
+            line-height: 1.6;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .benefits-list li {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            font-size: 1.15rem;
+            font-weight: 500;
+        }
+
+        .benefits-list li::before {
+            content: '✓';
+            margin-right: 15px;
+            width: 28px;
+            height: 28px;
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: 900;
+        }
+
+        .form-card {
+            width: 420px;
+            background: var(--card);
+            padding: 50px;
+            border-radius: 32px;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        h3 { font-size: 1.8rem; margin-top: 0; margin-bottom: 15px; font-weight: 800; }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 20px;
+            background: rgba(10, 14, 20, 0.7);
+            border: 2px solid #2d3545;
+            border-radius: 14px;
+            color: white;
+            margin-bottom: 24px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        input:focus { outline: none; border-color: var(--primary); }
+
+        button {
+            width: 100%;
+            padding: 22px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        button:hover {
+            background: #2563eb;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .footer-note {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 24px;
+            display: block;
+        }
+
+        #thank-you {
+            display: none;
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            color: #10b981;
+            margin-bottom: 20px;
+        }
+
         iframe { display: none; }
+
+        @media (max-width: 950px) {
+            .container { flex-direction: column; text-align: center; padding: 40px 20px; }
+            .hero-text { padding-right: 0; margin-bottom: 50px; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .form-card { width: 100%; }
+            .benefits-list li { justify-content: center; }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="hero-text">
-        <h1>AI-Hypergroei Rapport 2026</h1>
-        <p>Ontdek de 3 verborgen AI-parels die de volgende golf bepalen.</p>
+        <span class="badge">Gratis Research Rapport 2026</span>
+        <h1>3 AI-Aandelen met Hypergroei</h1>
+        <p>Vergeet Nvidia. De volgende golf beurswinnaars komt van drie verborgen spelers die nu nog grotendeels onopgemerkt blijven.</p>
+        
+        <ul class="benefits-list">
+            <li>Analyseren van de "Nvidia-moordenaars"</li>
+            <li>Exclusieve koersdoelen & marktdata</li>
+            <li>Directe PDF toegang in uw inbox</li>
+        </ul>
     </div>
 
     <div class="form-card" id="form-container">
-        <h3>Gratis Rapport</h3>
+        <h3>Direct Ontvangen</h3>
+        <p style="color: var(--text-dim); margin-bottom: 30px;">Vul uw e-mailadres in voor het rapport.</p>
         
         <form class="js-cm-form" id="subForm" 
               action="https://www.createsend.com/t/subscribeerror?description=" 
@@ -42,15 +216,16 @@
               data-id="5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E"
               target="hidden_iframe">
             
-            <input class="js-cm-email-input" id="fieldEmail" name="cm-njduyik-njduyik" type="email" placeholder="E-mailadres" required />
-            
+            <input class="js-cm-email-input" id="fieldEmail" name="cm-njduyik-njduyik" type="email" placeholder="E-mailadres..." required />
             <button class="js-cm-submit-button" type="submit" id="submit-btn">Download Rapport</button>
         </form>
+        <span class="footer-note">Uw gegevens zijn 100% veilig bij BeursBrink.</span>
     </div>
 
     <div id="thank-you" class="form-card">
-        <h2>✓ Gelukt!</h2>
-        <p>Je aanvraag is verwerkt. Het rapport is onderweg.</p>
+        <div class="success-icon">✓</div>
+        <h2>Aanvraag Gelukt!</h2>
+        <p>De koppeling is bevestigd. Het rapport wordt nu verzonden naar uw inbox.</p>
     </div>
 </div>
 
@@ -59,22 +234,27 @@
 <script type="text/javascript" src="https://js.createsend1.com/javascript/copypastesubscribeformlogic.js"></script>
 
 <script>
-    // We moeten de data-id handmatig aan de actie toevoegen omdat hun script dit soms verwacht
+    // URL samenstellen voor Campaign Monitor
     const form = document.getElementById('subForm');
     const dataId = form.getAttribute('data-id');
     form.action = form.action + dataId;
 
     form.addEventListener('submit', function() {
-        // Google Ads Tracking
+        // Google Ads Tracking met Enhanced Conversions
         const emailValue = document.getElementById('fieldEmail').value;
         gtag('set', 'user_data', { "email": emailValue });
         gtag('event', 'conversion', { 'send_to': 'AW-979697475/cO-fCLfI3e0bEMP-k9MD' });
 
-        // Wissel scherm na verzending naar de iframe
+        // Visuele feedback op de knop
+        const btn = document.getElementById('submit-btn');
+        btn.innerText = 'Verwerken...';
+        btn.disabled = true;
+
+        // Wissel naar bedankt scherm na verzending naar iframe
         setTimeout(() => {
             document.getElementById('form-container').style.display = 'none';
             document.getElementById('thank-you').style.display = 'block';
-        }, 1000);
+        }, 1200);
     });
 </script>
 
