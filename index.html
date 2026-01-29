@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3 AI-aandelen met Hypergroei - Gratis Rapport</title>
+    <title>3 AI-Aandelen met Hypergroei | ai-aandelen.com</title>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-979697475"></script>
     <script>
@@ -13,76 +13,144 @@
       gtag('config', 'AW-979697475', { 'allow_enhanced_conversions': true });
     </script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --main-blue: #0056b3; --dark-blue: #003d7a; --bg-gray: #f4f7f9; --text-dark: #1a1a1a; }
-        body { font-family: 'Open Sans', sans-serif; color: var(--text-dark); background-color: white; margin: 0; line-height: 1.6; }
-        .top-bar { background: var(--main-blue); color: white; text-align: center; padding: 10px; font-weight: bold; font-size: 0.9rem; }
-        .hero { max-width: 1000px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 380px; gap: 40px; }
-        
-        h1 { font-family: 'Montserrat', sans-serif; font-size: 2.4rem; color: var(--main-blue); line-height: 1.2; margin-bottom: 20px; }
-        .subheadline { font-size: 1.3rem; font-weight: 600; margin-bottom: 25px; color: #333; }
-        .highlight-text { background: #fffde7; padding: 2px 5px; border-bottom: 2px solid #ffd600; }
-        
-        .benefits { list-style: none; padding: 0; margin: 30px 0; }
-        .benefits li { margin-bottom: 15px; padding-left: 35px; position: relative; font-size: 1.1rem; }
-        .benefits li::before { content: '✓'; position: absolute; left: 0; color: #28a745; font-weight: bold; font-size: 1.4rem; }
+        :root {
+            --bg: #05070a;
+            --card: #0f172a;
+            --primary: #3b82f6;
+            --accent: #60a5fa;
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+        }
 
-        .form-box { background: var(--bg-gray); padding: 30px; border-radius: 8px; border: 1px solid #dce4e9; position: sticky; top: 20px; }
-        .form-box h3 { margin-top: 0; font-family: 'Montserrat', sans-serif; font-size: 1.4rem; color: var(--main-blue); }
-        
-        input[type="email"] { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; box-sizing: border-box; }
-        button { width: 100%; background: #28a745; color: white; padding: 18px; border: none; border-radius: 4px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: background 0.3s; }
-        button:hover { background: #218838; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at top right, #1e293b 0%, #05070a 100%);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-        .author-box { margin-top: 40px; font-style: italic; color: #666; font-size: 0.9rem; border-top: 1px solid #eee; padding-top: 20px; }
-        #thank-you { display: none; text-align: center; padding: 40px; background: #e8f5e9; border-radius: 8px; }
+        .container {
+            max-width: 900px;
+            width: 95%;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 40px;
+            padding: 40px;
+            align-items: center;
+        }
 
-        @media (max-width: 850px) { .hero { grid-template-columns: 1fr; } .form-box { position: static; } }
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            margin-bottom: 30px;
+        }
+
+        .form-card {
+            background: var(--card);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 50px rgba(59, 130, 246, 0.15);
+            position: relative;
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), transparent, var(--accent));
+            border-radius: 26px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        h3 { font-size: 1.5rem; margin-top: 0; }
+
+        input {
+            width: 100%;
+            padding: 16px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        input:focus { outline: 2px solid var(--primary); border-color: transparent; }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover { background: var(--accent); transform: scale(1.02); }
+
+        #thank-you { display: none; text-align: center; }
+        .success-icon { font-size: 4rem; color: #10b981; margin-bottom: 20px; }
+
+        @media (max-width: 850px) {
+            .container { grid-template-columns: 1fr; text-align: center; padding: 20px; }
+            .hero-text h1 { font-size: 2.5rem; }
+        }
     </style>
 </head>
 <body>
 
-<div class="top-bar">GRATIS RESEARCH RAPPORT: 3 AI-AANDELEN MET HYPERGROEI</div>
-
-<section class="hero">
-    <div class="content">
-        <h1>3 AI-aandelen met <span class="highlight-text">Hypergroei</span></h1>
-        <p class="subheadline">Vergeet Nvidia. Palantir. De volgende golf van AI-winnaars komt van drie verborgen spelers die nu nog grotendeels onopgemerkt blijven.</p>
-        
-        <p>Beste belegger, de AI-revolutie staat nog maar aan het begin. Terwijl de massa zich focust op de bekende namen, hebben onze analisten drie bedrijven geïdentificeerd die het fundament leggen voor de volgende fase van groei.</p>
-        
-        <ul class="benefits">
-            <li><strong>De Verborgen Leverancier:</strong> Het kloppende brein achter talloze nieuwe AI-toepassingen.</li>
-            <li><strong>De Defensie-Pionier:</strong> Hoe AI militaire beslissingen razendsnel transformeert.</li>
-            <li><strong>De Drone-Revolutie:</strong> Een speler die autonome systemen naar een ongekend niveau tilt.</li>
+<div class="container">
+    <div class="hero-text">
+        <h1>AI-Hypergroei Rapport 2026</h1>
+        <p>Vergeet de bekende namen. Ontdek de 3 verborgen AI-parels die het fundament leggen voor de volgende beursexplosie.</p>
+        <ul style="list-style: none; padding: 0; color: var(--text-dim);">
+            <li style="margin-bottom: 10px;">⚡️ Analyseren van de "Nvidia-moordenaars"</li>
+            <li style="margin-bottom: 10px;">📊 Exclusieve data & koersdoelen</li>
+            <li>🚀 Directe PDF download</li>
         </ul>
-        
-        <p>Dit rapport is tijdelijk gratis beschikbaar voor Nederlandse beleggers die voor de massa uit willen lopen.</p>
-        
-        <div class="author-box">
-            Namens het team van BeursBrink bieden wij u dit exclusieve rapport aan.
-        </div>
     </div>
 
-    <aside>
-        <div class="form-box" id="form-container">
-            <h3>Ontvang het rapport</h3>
-            <p>Vul uw e-mailadres in en ontvang het PDF-rapport direct gratis in uw mailbox.</p>
-            
-            <form id="lead-form" action="https://www.createsend.com/t/subscribeerror?description=" method="post" data-id="5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E">
-                <input type="email" name="cm-njduyik-njduyik" id="user-email" placeholder="Uw e-mailadres" required>
-                <button type="submit" id="submit-btn">Rapport gratis ontvangen</button>
-            </form>
-            <p style="font-size: 0.75rem; color: #999; margin-top: 15px;">Door aan te vragen gaat u akkoord met onze privacyverklaring. U kunt zich op elk moment uitschrijven.</p>
-        </div>
+    <div class="form-card" id="form-container">
+        <h3>Gratis Toegang</h3>
+        <p style="color: var(--text-dim); margin-bottom: 25px;">Vul uw e-mailadres in voor het rapport.</p>
+        
+        <form id="lead-form" action="https://www.createsend.com/t/subscribeerror?description=" method="post" data-id="5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E">
+            <input type="email" name="cm-njduyik-njduyik" id="user-email" placeholder="naam@voorbeeld.nl" required>
+            <button type="submit" id="submit-btn">Download Rapport</button>
+        </form>
+    </div>
 
-        <div id="thank-you">
-            <h2 style="color: #28a745;">✓ Verzonden!</h2>
-            <p>Het rapport is onderweg naar uw inbox. Controleer ook uw spam-folder.</p>
-        </div>
-    </aside>
-</section>
+    <div class="form-card" id="thank-you">
+        <div class="success-icon">✓</div>
+        <h2>Systeem Gekoppeld</h2>
+        <p>De data is verzonden. Het rapport staat over enkele minuten in uw inbox.</p>
+    </div>
+</div>
 
 <script>
 document.getElementById('lead-form').addEventListener('submit', function(e) {
@@ -91,21 +159,18 @@ document.getElementById('lead-form').addEventListener('submit', function(e) {
     const btn = document.getElementById('submit-btn');
     const emailValue = document.getElementById('user-email').value;
 
-    btn.innerText = 'Verwerken...';
+    btn.innerText = 'Synchroniseren...';
     btn.disabled = true;
 
     // 1. Google Ads Enhanced Conversions
     gtag('set', 'user_data', { "email": emailValue });
 
-    // 2. Google Ads Event (ID en Label zoals gezocht)
+    // 2. Google Ads Event
     gtag('event', 'conversion', {
         'send_to': 'AW-979697475/cO-fCLfI3e0bEMP-k9MD',
-        'event_callback': function() {
-            submitToDelivermail(form);
-        }
+        'event_callback': function() { submitToDelivermail(form); }
     });
 
-    // Fallback voor trage verbindingen
     setTimeout(() => { submitToDelivermail(form); }, 1000);
 });
 
@@ -123,8 +188,7 @@ function submitToDelivermail(form) {
     }).then(() => {
         document.getElementById('form-container').style.display = 'none';
         document.getElementById('thank-you').style.display = 'block';
-    }).catch(err => {
-        console.error(err);
+    }).catch(() => {
         document.getElementById('form-container').style.display = 'none';
         document.getElementById('thank-you').style.display = 'block';
     });
