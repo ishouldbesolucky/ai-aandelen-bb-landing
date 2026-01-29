@@ -11,7 +11,7 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      // Configuratie met Enhanced Conversions ondersteuning
+      // Configuratie met Enhanced Conversions ondersteuning voor jouw ID
       gtag('config', 'AW-979697475', { 'allow_enhanced_conversions': true });
     </script>
 
@@ -35,8 +35,8 @@
         <h1>3 AI-Aandelen met Hypergroei</h1>
         <p>Ontvang direct de namen en analyses van de meest veelbelovende AI-bedrijven van 2026.</p>
         
-        <form id="lead-form">
-            <input type="email" id="user-email" placeholder="E-mailadres" required>
+        <form id="lead-form" action="https://www.createsend.com/t/subscribeerror?description=" method="post" data-id="5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E">
+            <input type="email" name="cm-njduyik-njduyik" id="user-email" placeholder="E-mailadres" required>
             <button type="submit">Ontvang Gratis Rapport</button>
         </form>
     </div>
@@ -51,22 +51,49 @@
 <script>
 document.getElementById('lead-form').addEventListener('submit', function(e) {
     e.preventDefault();
+    const form = e.target;
     const emailValue = document.getElementById('user-email').value;
 
-    // 1. Enhanced Conversions (voor betere matching in Google Ads)
+    // 1. Enhanced Conversions: Stuur email naar Google voor betere matching
     gtag('set', 'user_data', { "email": emailValue });
 
-    // 2. Jouw Specifieke Google Ads Conversie Event
+    // 2. Google Ads Conversie Event met jouw unieke Label
     gtag('event', 'conversion', {
         'send_to': 'AW-979697475/cO-fCLfI3e0bEMP-k9MD',
-        'value': 1.0,
-        'currency': 'EUR'
+        'event_callback': function() {
+            submitToDelivermail(form);
+        }
     });
 
-    // 3. UI Wisselen (Directe feedback voor de bezoeker)
-    document.getElementById('form-wrapper').style.display = 'none';
-    document.getElementById('thank-you').style.display = 'block';
+    // Veiligheid: als de Google callback niet binnen 1 seconde vuurt, stuur dan alsnog de lead door
+    setTimeout(() => { submitToDelivermail(form); }, 1000);
 });
+
+function submitToDelivermail(form) {
+    if (form.getAttribute('data-sent') === 'true') return;
+    form.setAttribute('data-sent', 'true');
+
+    // Gebruik FormData om de data op de achtergrond naar DeliverMail te sturen
+    const formData = new FormData(form);
+    
+    // We voegen de data-id handmatig toe omdat fetch dit soms nodig heeft bij CreateSend forms
+    const dataId = form.getAttribute('data-id');
+
+    fetch(form.action + dataId, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+    }).then(() => {
+        // Toon de succesmelding op de pagina zonder te herladen
+        document.getElementById('form-wrapper').style.display = 'none';
+        document.getElementById('thank-you').style.display = 'block';
+    }).catch(err => {
+        console.error("Fout bij verzenden:", err);
+        // Zelfs bij een error tonen we het succes scherm voor de bezoeker
+        document.getElementById('form-wrapper').style.display = 'none';
+        document.getElementById('thank-you').style.display = 'block';
+    });
+}
 </script>
 
 </body>
