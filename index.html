@@ -20,13 +20,11 @@
         .container { max-width: 1000px; width: 90%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 40px 0; }
         .hero-text { flex: 1; min-width: 320px; padding-right: 40px; }
         .hero-text h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; background: linear-gradient(to right, #ffffff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-text p { font-size: 1.3rem; color: var(--text-dim); margin-bottom: 30px; }
         .form-card { width: 400px; background: var(--card); padding: 45px; border-radius: 28px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 0 40px rgba(59, 130, 246, 0.2); }
         input[type="email"] { width: 100%; padding: 18px; background: rgba(10, 14, 20, 0.8); border: 1px solid #334155; border-radius: 12px; color: white; margin-bottom: 20px; font-size: 1rem; box-sizing: border-box; }
         button { width: 100%; padding: 20px; background: var(--primary); color: white; border: none; border-radius: 12px; font-weight: 800; font-size: 1.2rem; cursor: pointer; transition: all 0.3s; }
         #thank-you { display: none; text-align: center; }
-        .success-icon { font-size: 5rem; color: #10b981; margin-bottom: 20px; }
-        iframe { display: none; }
+        iframe { display: none; } /* Onzichtbaar frame */
     </style>
 </head>
 <body>
@@ -34,60 +32,44 @@
 <div class="container">
     <div class="hero-text">
         <h1>AI-Hypergroei Rapport 2026</h1>
-        <p>Ontdek de 3 verborgen AI-parels die de volgende golf van beurssuccessen bepalen.</p>
-        <ul style="list-style: none; padding: 0;">
-            <li style="margin-bottom: 15px;">⚡️ Analyseren van de "Nvidia-moordenaars"</li>
-            <li style="margin-bottom: 15px;">⚡️ Exclusieve koersdoelen & data</li>
-        </ul>
+        <p>Ontdek de 3 verborgen AI-parels die de volgende golf bepalen.</p>
     </div>
 
     <div class="form-card" id="form-container">
         <h3>Gratis Rapport</h3>
-        <p style="color: var(--text-dim); margin-bottom: 25px;">Vul uw e-mailadres in voor directe toegang.</p>
-        
-        <form id="lead-form" action="https://www.createsend.com/t/subscribeerror?description=" method="post" data-id="5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E" target="hidden_iframe">
-            <input type="email" name="cm-njduyik-njduyik" id="user-email" placeholder="uw@emailadres.nl" required>
+        <form id="subForm" action="https://www.createsend.com/t/subscribeerror?description=5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E" method="post" target="hidden_iframe">
+            <input type="email" name="cm-njduyik-njduyik" id="fieldEmail" placeholder="E-mailadres" required>
             <button type="submit" id="submit-btn">Download Rapport</button>
         </form>
     </div>
 
     <div id="thank-you" class="form-card">
-        <div class="success-icon">✓</div>
-        <h2>Aanvraag Gelukt!</h2>
-        <p>Het rapport wordt nu verzonden naar uw inbox.</p>
+        <h2>✓ Gelukt!</h2>
+        <p>Het rapport is onderweg naar je inbox.</p>
     </div>
 </div>
 
 <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
 
 <script>
-    const form = document.getElementById('lead-form');
-    const actionBase = form.getAttribute('action');
-    const dataId = form.getAttribute('data-id');
+document.getElementById('subForm').addEventListener('submit', function(e) {
+    const emailValue = document.getElementById('fieldEmail').value;
     
-    // Zet de volledige URL in elkaar
-    form.action = actionBase + dataId;
-
-    form.addEventListener('submit', function(e) {
-        // We laten de default submit gaan OMDAT we naar een iframe sturen
-        const emailValue = document.getElementById('user-email').value;
-        const btn = document.getElementById('submit-btn');
-        btn.innerText = 'Verwerken...';
-        btn.disabled = true;
-
-        // 1. Google Ads Meetpunt
-        gtag('set', 'user_data', { "email": emailValue });
-        gtag('event', 'conversion', {
-            'send_to': 'AW-979697475/cO-fCLfI3e0bEMP-k9MD'
-        });
-
-        // 2. Wissel het scherm na een korte vertraging (terwijl iframe laadt)
-        setTimeout(() => {
-            document.getElementById('form-container').style.display = 'none';
-            document.getElementById('thank-you').style.display = 'block';
-        }, 800);
+    // 1. Google Ads Conversie met jouw label
+    gtag('set', 'user_data', { "email": emailValue });
+    gtag('event', 'conversion', {
+        'send_to': 'AW-979697475/cO-fCLfI3e0bEMP-k9MD'
     });
-</script>
 
+    // 2. Visuele feedback
+    document.getElementById('submit-btn').innerText = 'Verzenden...';
+    
+    // 3. Toon bedankje na korte vertraging
+    setTimeout(() => {
+        document.getElementById('form-container').style.display = 'none';
+        document.getElementById('thank-you').style.display = 'block';
+    }, 1000);
+});
+</script>
 </body>
 </html>
