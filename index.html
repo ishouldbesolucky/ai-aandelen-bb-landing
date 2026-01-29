@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 AI-Aandelen met Hypergroei | ai-aandelen.com</title>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-979697475"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Configuratie met Enhanced Conversions ondersteuning
+      gtag('config', 'AW-979697475', { 'allow_enhanced_conversions': true });
+    </script>
+
+    <style>
+        :root { --bg: #0a0e14; --card: #1c222d; --primary: #007bff; --text: #ffffff; --success: #28a745; }
+        body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; margin: 0; padding-top: 60px; }
+        .container { max-width: 420px; width: 90%; background: var(--card); padding: 40px; border-radius: 16px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5); border: 1px solid #2d3545; height: fit-content; }
+        h1 { font-size: 1.6rem; margin-bottom: 10px; font-weight: 800; }
+        p { color: #8892b0; line-height: 1.5; margin-bottom: 30px; }
+        input { width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #333; background: #0a0e14; color: white; box-sizing: border-box; font-size: 1rem; }
+        button { width: 100%; padding: 16px; border: none; border-radius: 8px; background: var(--primary); color: white; font-weight: 700; cursor: pointer; font-size: 1.1rem; }
+        button:hover { background: #0069d9; }
+        #thank-you { display: none; }
+        .check-icon { font-size: 3rem; color: var(--success); margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="form-wrapper">
+        <h1>3 AI-Aandelen met Hypergroei</h1>
+        <p>Ontvang direct de namen en analyses van de meest veelbelovende AI-bedrijven van 2026.</p>
+        
+        <form id="lead-form">
+            <input type="email" id="user-email" placeholder="E-mailadres" required>
+            <button type="submit">Ontvang Gratis Rapport</button>
+        </form>
+    </div>
+
+    <div id="thank-you">
+        <div class="check-icon">✓</div>
+        <h1>Succes!</h1>
+        <p>Je aanvraag is verwerkt. Het rapport is onderweg naar je inbox.</p>
+    </div>
+</div>
+
+<script>
+document.getElementById('lead-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const emailValue = document.getElementById('user-email').value;
+
+    // 1. Enhanced Conversions (voor betere matching in Google Ads)
+    gtag('set', 'user_data', { "email": emailValue });
+
+    // 2. Jouw Specifieke Google Ads Conversie Event
+    gtag('event', 'conversion', {
+        'send_to': 'AW-979697475/cO-fCLfI3e0bEMP-k9MD',
+        'value': 1.0,
+        'currency': 'EUR'
+    });
+
+    // 3. UI Wisselen (Directe feedback voor de bezoeker)
+    document.getElementById('form-wrapper').style.display = 'none';
+    document.getElementById('thank-you').style.display = 'block';
+});
+</script>
+
+</body>
+</html>
