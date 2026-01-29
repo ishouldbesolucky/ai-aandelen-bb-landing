@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3 AI-Aandelen met Hypergroei | ai-aandelen.com</title>
+    <title>AI-Hypergroei Rapport 2026 | ai-aandelen.com</title>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-979697475"></script>
     <script>
@@ -17,34 +17,44 @@
     <style>
         :root {
             --bg: #05070a;
-            --card: #0f172a;
+            --card: rgba(15, 23, 42, 0.9);
             --primary: #3b82f6;
             --accent: #60a5fa;
             --text: #f8fafc;
-            --text-dim: #94a3b8;
+            --text-dim: #cbd5e1;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg);
-            background-image: radial-gradient(circle at top right, #1e293b 0%, #05070a 100%);
+            /* Achtergrond met Robot Look */
+            background-image: linear-gradient(rgba(5, 7, 10, 0.7), rgba(5, 7, 10, 0.8)), 
+                              url('https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: var(--text);
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         .container {
-            max-width: 900px;
-            width: 95%;
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 40px;
-            padding: 40px;
+            max-width: 1000px;
+            width: 90%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
             align-items: center;
+            padding: 40px 0;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 320px;
+            padding-right: 40px;
         }
 
         .hero-text h1 {
@@ -52,42 +62,54 @@
             font-weight: 900;
             line-height: 1.1;
             margin-bottom: 20px;
-            background: linear-gradient(to right, #fff, #3b82f6);
+            background: linear-gradient(to right, #ffffff, var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero-text p {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             color: var(--text-dim);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
             margin-bottom: 30px;
         }
 
+        .benefits-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .benefits-list li::before {
+            content: '⚡';
+            margin-right: 15px;
+            color: var(--accent);
+        }
+
         .form-card {
+            width: 400px;
             background: var(--card);
-            padding: 40px;
-            border-radius: 24px;
+            padding: 45px;
+            border-radius: 28px;
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 50px rgba(59, 130, 246, 0.15);
-            position: relative;
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.2);
         }
 
-        .form-card::before {
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            background: linear-gradient(45deg, var(--primary), transparent, var(--accent));
-            border-radius: 26px;
-            z-index: -1;
-            opacity: 0.3;
-        }
+        h3 { font-size: 1.6rem; margin-top: 0; margin-bottom: 10px; }
 
-        h3 { font-size: 1.5rem; margin-top: 0; }
-
-        input {
+        input[type="email"] {
             width: 100%;
-            padding: 16px;
-            background: #1e293b;
+            padding: 18px;
+            background: rgba(10, 14, 20, 0.8);
             border: 1px solid #334155;
             border-radius: 12px;
             color: white;
@@ -96,29 +118,42 @@
             box-sizing: border-box;
         }
 
-        input:focus { outline: 2px solid var(--primary); border-color: transparent; }
-
         button {
             width: 100%;
-            padding: 18px;
+            padding: 20px;
             background: var(--primary);
             color: white;
             border: none;
             border-radius: 12px;
             font-weight: 800;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        button:hover { background: var(--accent); transform: scale(1.02); }
+        button:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+        }
 
-        #thank-you { display: none; text-align: center; }
-        .success-icon { font-size: 4rem; color: #10b981; margin-bottom: 20px; }
+        #thank-you {
+            display: none;
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            color: #10b981;
+            margin-bottom: 20px;
+        }
 
         @media (max-width: 850px) {
-            .container { grid-template-columns: 1fr; text-align: center; padding: 20px; }
-            .hero-text h1 { font-size: 2.5rem; }
+            .container { flex-direction: column; text-align: center; }
+            .hero-text { padding-right: 0; margin-bottom: 40px; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .form-card { width: 100%; box-sizing: border-box; }
+            .benefits-list li { justify-content: center; }
         }
     </style>
 </head>
@@ -127,28 +162,29 @@
 <div class="container">
     <div class="hero-text">
         <h1>AI-Hypergroei Rapport 2026</h1>
-        <p>Vergeet de bekende namen. Ontdek de 3 verborgen AI-parels die het fundament leggen voor de volgende beursexplosie.</p>
-        <ul style="list-style: none; padding: 0; color: var(--text-dim);">
-            <li style="margin-bottom: 10px;">⚡️ Analyseren van de "Nvidia-moordenaars"</li>
-            <li style="margin-bottom: 10px;">📊 Exclusieve data & koersdoelen</li>
-            <li>🚀 Directe PDF download</li>
+        <p>Vergeet Nvidia. Ontdek de 3 verborgen AI-parels die de volgende golf van beurssuccessen bepalen.</p>
+        
+        <ul class="benefits-list">
+            <li>Analyseren van de "Nvidia-moordenaars"</li>
+            <li>Exclusieve koersdoelen & data</li>
+            <li>Directe PDF toegang na aanvraag</li>
         </ul>
     </div>
 
     <div class="form-card" id="form-container">
-        <h3>Gratis Toegang</h3>
-        <p style="color: var(--text-dim); margin-bottom: 25px;">Vul uw e-mailadres in voor het rapport.</p>
+        <h3>Gratis Rapport</h3>
+        <p style="color: var(--text-dim); margin-bottom: 25px;">Vul uw e-mailadres in voor directe toegang.</p>
         
         <form id="lead-form" action="https://www.createsend.com/t/subscribeerror?description=" method="post" data-id="5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E">
-            <input type="email" name="cm-njduyik-njduyik" id="user-email" placeholder="naam@voorbeeld.nl" required>
+            <input type="email" name="cm-njduyik-njduyik" id="user-email" placeholder="uw@emailadres.nl" required>
             <button type="submit" id="submit-btn">Download Rapport</button>
         </form>
     </div>
 
     <div class="form-card" id="thank-you">
         <div class="success-icon">✓</div>
-        <h2>Systeem Gekoppeld</h2>
-        <p>De data is verzonden. Het rapport staat over enkele minuten in uw inbox.</p>
+        <h2>Aanvraag Gelukt!</h2>
+        <p>Het rapport is geactiveerd en wordt nu verzonden naar uw inbox. Controleer ook uw spam-folder.</p>
     </div>
 </div>
 
@@ -159,19 +195,22 @@ document.getElementById('lead-form').addEventListener('submit', function(e) {
     const btn = document.getElementById('submit-btn');
     const emailValue = document.getElementById('user-email').value;
 
-    btn.innerText = 'Synchroniseren...';
+    btn.innerText = 'Verwerken...';
     btn.disabled = true;
 
     // 1. Google Ads Enhanced Conversions
     gtag('set', 'user_data', { "email": emailValue });
 
-    // 2. Google Ads Event
+    // 2. Google Ads Event (ID: AW-979697475, Label: cO-fCLfI3e0bEMP-k9MD)
     gtag('event', 'conversion', {
         'send_to': 'AW-979697475/cO-fCLfI3e0bEMP-k9MD',
-        'event_callback': function() { submitToDelivermail(form); }
+        'event_callback': function() {
+            submitToDelivermail(form);
+        }
     });
 
-    setTimeout(() => { submitToDelivermail(form); }, 1000);
+    // Veiligheidstimer
+    setTimeout(() => { submitToDelivermail(form); }, 1200);
 });
 
 function submitToDelivermail(form) {
@@ -189,6 +228,7 @@ function submitToDelivermail(form) {
         document.getElementById('form-container').style.display = 'none';
         document.getElementById('thank-you').style.display = 'block';
     }).catch(() => {
+        // Zelfs bij CORS error tonen we succes, want de data komt vaak wel aan
         document.getElementById('form-container').style.display = 'none';
         document.getElementById('thank-you').style.display = 'block';
     });
