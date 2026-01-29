@@ -13,18 +13,16 @@
       gtag('config', 'AW-979697475', { 'allow_enhanced_conversions': true });
     </script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #05070a; --card: rgba(15, 23, 42, 0.9); --primary: #3b82f6; --accent: #60a5fa; --text: #f8fafc; --text-dim: #cbd5e1; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg); background-image: linear-gradient(rgba(5, 7, 10, 0.7), rgba(5, 7, 10, 0.8)), url('https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600'); background-size: cover; background-position: center; background-attachment: fixed; color: var(--text); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { max-width: 1000px; width: 90%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 40px 0; }
+        :root { --bg: #05070a; --card: rgba(15, 23, 42, 0.9); --primary: #3b82f6; --text: #f8fafc; }
+        body { font-family: sans-serif; background-color: var(--bg); background-image: linear-gradient(rgba(5, 7, 10, 0.7), rgba(5, 7, 10, 0.8)), url('https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600'); background-size: cover; background-position: center; background-attachment: fixed; color: var(--text); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { max-width: 1000px; width: 90%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
         .hero-text { flex: 1; min-width: 320px; padding-right: 40px; }
-        .hero-text h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; background: linear-gradient(to right, #ffffff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .form-card { width: 400px; background: var(--card); padding: 45px; border-radius: 28px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 0 40px rgba(59, 130, 246, 0.2); }
-        input[type="email"] { width: 100%; padding: 18px; background: rgba(10, 14, 20, 0.8); border: 1px solid #334155; border-radius: 12px; color: white; margin-bottom: 20px; font-size: 1rem; box-sizing: border-box; }
-        button { width: 100%; padding: 20px; background: var(--primary); color: white; border: none; border-radius: 12px; font-weight: 800; font-size: 1.2rem; cursor: pointer; transition: all 0.3s; }
+        .form-card { width: 400px; background: var(--card); padding: 45px; border-radius: 28px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        input { width: 100%; padding: 18px; background: rgba(10, 14, 20, 0.8); border: 1px solid #334155; border-radius: 12px; color: white; margin-bottom: 20px; box-sizing: border-box; }
+        button { width: 100%; padding: 20px; background: var(--primary); color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; }
         #thank-you { display: none; text-align: center; }
-        iframe { display: none; } /* Onzichtbaar frame */
+        iframe { display: none; }
     </style>
 </head>
 <body>
@@ -37,39 +35,48 @@
 
     <div class="form-card" id="form-container">
         <h3>Gratis Rapport</h3>
-        <form id="subForm" action="https://www.createsend.com/t/subscribeerror?description=5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E" method="post" target="hidden_iframe">
-            <input type="email" name="cm-njduyik-njduyik" id="fieldEmail" placeholder="E-mailadres" required>
-            <button type="submit" id="submit-btn">Download Rapport</button>
+        
+        <form class="js-cm-form" id="subForm" 
+              action="https://www.createsend.com/t/subscribeerror?description=" 
+              method="post" 
+              data-id="5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E"
+              target="hidden_iframe">
+            
+            <input class="js-cm-email-input" id="fieldEmail" name="cm-njduyik-njduyik" type="email" placeholder="E-mailadres" required />
+            
+            <button class="js-cm-submit-button" type="submit" id="submit-btn">Download Rapport</button>
         </form>
     </div>
 
     <div id="thank-you" class="form-card">
         <h2>✓ Gelukt!</h2>
-        <p>Het rapport is onderweg naar je inbox.</p>
+        <p>Je aanvraag is verwerkt. Het rapport is onderweg.</p>
     </div>
 </div>
 
 <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
 
-<script>
-document.getElementById('subForm').addEventListener('submit', function(e) {
-    const emailValue = document.getElementById('fieldEmail').value;
-    
-    // 1. Google Ads Conversie met jouw label
-    gtag('set', 'user_data', { "email": emailValue });
-    gtag('event', 'conversion', {
-        'send_to': 'AW-979697475/cO-fCLfI3e0bEMP-k9MD'
-    });
+<script type="text/javascript" src="https://js.createsend1.com/javascript/copypastesubscribeformlogic.js"></script>
 
-    // 2. Visuele feedback
-    document.getElementById('submit-btn').innerText = 'Verzenden...';
-    
-    // 3. Toon bedankje na korte vertraging
-    setTimeout(() => {
-        document.getElementById('form-container').style.display = 'none';
-        document.getElementById('thank-you').style.display = 'block';
-    }, 1000);
-});
+<script>
+    // We moeten de data-id handmatig aan de actie toevoegen omdat hun script dit soms verwacht
+    const form = document.getElementById('subForm');
+    const dataId = form.getAttribute('data-id');
+    form.action = form.action + dataId;
+
+    form.addEventListener('submit', function() {
+        // Google Ads Tracking
+        const emailValue = document.getElementById('fieldEmail').value;
+        gtag('set', 'user_data', { "email": emailValue });
+        gtag('event', 'conversion', { 'send_to': 'AW-979697475/cO-fCLfI3e0bEMP-k9MD' });
+
+        // Wissel scherm na verzending naar de iframe
+        setTimeout(() => {
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('thank-you').style.display = 'block';
+        }, 1000);
+    });
 </script>
+
 </body>
 </html>
