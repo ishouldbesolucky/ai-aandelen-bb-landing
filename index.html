@@ -10,41 +10,172 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
-      // Configuratie met Enhanced Conversions ondersteuning voor jouw ID
       gtag('config', 'AW-979697475', { 'allow_enhanced_conversions': true });
     </script>
 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #0a0e14; --card: #1c222d; --primary: #007bff; --text: #ffffff; --success: #28a745; }
-        body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; min-height: 100vh; margin: 0; padding-top: 60px; }
-        .container { max-width: 420px; width: 90%; background: var(--card); padding: 40px; border-radius: 16px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5); border: 1px solid #2d3545; height: fit-content; }
-        h1 { font-size: 1.6rem; margin-bottom: 10px; font-weight: 800; }
-        p { color: #8892b0; line-height: 1.5; margin-bottom: 30px; }
-        input { width: 100%; padding: 14px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #333; background: #0a0e14; color: white; box-sizing: border-box; font-size: 1rem; }
-        button { width: 100%; padding: 16px; border: none; border-radius: 8px; background: var(--primary); color: white; font-weight: 700; cursor: pointer; font-size: 1.1rem; }
-        button:hover { background: #0069d9; }
-        #thank-you { display: none; }
-        .check-icon { font-size: 3rem; color: var(--success); margin-bottom: 15px; }
+        :root {
+            --bg: #0a0e14;
+            --card: #1c222d;
+            --primary: #007bff;
+            --primary-hover: #0056b3;
+            --text: #ffffff;
+            --text-muted: #8892b0;
+            --success: #28a745;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 90%;
+            background: var(--card);
+            padding: 50px 40px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .badge {
+            background: rgba(0, 123, 255, 0.1);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.2;
+            background: linear-gradient(to bottom right, #fff 50%, #8892b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px;
+            background: #0a0e14;
+            border: 2px solid #2d3545;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: #4a5568;
+            margin-top: 24px;
+        }
+
+        #thank-you {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 24px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 40px 20px; }
+            h1 { font-size: 1.75rem; }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div id="form-wrapper">
+        <span class="badge">Exclusief Researchrapport</span>
         <h1>3 AI-Aandelen met Hypergroei</h1>
-        <p>Ontvang direct de namen en analyses van de meest veelbelovende AI-bedrijven van 2026.</p>
+        <p>Ontvang direct de namen en analyses van de meest veelbelovende AI-bedrijven van dit moment.</p>
         
         <form id="lead-form" action="https://www.createsend.com/t/subscribeerror?description=" method="post" data-id="5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E">
-            <input type="email" name="cm-njduyik-njduyik" id="user-email" placeholder="E-mailadres" required>
-            <button type="submit">Ontvang Gratis Rapport</button>
+            <div class="form-group">
+                <input type="email" name="cm-njduyik-njduyik" id="user-email" placeholder="Je beste e-mailadres..." required>
+            </div>
+            <button type="submit" id="submit-btn">Ontvang Gratis Rapport</button>
         </form>
+        <p class="footer-text">Wij haten spam. Je gegevens zijn 100% veilig.</p>
     </div>
 
     <div id="thank-you">
-        <div class="check-icon">✓</div>
+        <div class="icon-box">✓</div>
         <h1>Succes!</h1>
-        <p>Je aanvraag is verwerkt. Het rapport is onderweg naar je inbox.</p>
+        <p>Het rapport is verzonden naar je inbox. Controleer ook je spam-folder als je binnen 5 minuten niets ziet.</p>
+        <button onclick="window.location.reload()" style="background: transparent; border: 1px solid #2d3545; box-shadow: none;">Terug</button>
     </div>
 </div>
 
@@ -52,12 +183,16 @@
 document.getElementById('lead-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const form = e.target;
+    const btn = document.getElementById('submit-btn');
     const emailValue = document.getElementById('user-email').value;
 
-    // 1. Enhanced Conversions: Stuur email naar Google voor betere matching
+    btn.innerText = 'Verwerken...';
+    btn.disabled = true;
+
+    // 1. Google Ads Enhanced Conversions
     gtag('set', 'user_data', { "email": emailValue });
 
-    // 2. Google Ads Conversie Event met jouw unieke Label
+    // 2. Google Ads Event
     gtag('event', 'conversion', {
         'send_to': 'AW-979697475/cO-fCLfI3e0bEMP-k9MD',
         'event_callback': function() {
@@ -65,7 +200,7 @@ document.getElementById('lead-form').addEventListener('submit', function(e) {
         }
     });
 
-    // Veiligheid: als de Google callback niet binnen 1 seconde vuurt, stuur dan alsnog de lead door
+    // Fallback
     setTimeout(() => { submitToDelivermail(form); }, 1000);
 });
 
@@ -73,10 +208,7 @@ function submitToDelivermail(form) {
     if (form.getAttribute('data-sent') === 'true') return;
     form.setAttribute('data-sent', 'true');
 
-    // Gebruik FormData om de data op de achtergrond naar DeliverMail te sturen
     const formData = new FormData(form);
-    
-    // We voegen de data-id handmatig toe omdat fetch dit soms nodig heeft bij CreateSend forms
     const dataId = form.getAttribute('data-id');
 
     fetch(form.action + dataId, {
@@ -84,12 +216,10 @@ function submitToDelivermail(form) {
         body: formData,
         mode: 'no-cors'
     }).then(() => {
-        // Toon de succesmelding op de pagina zonder te herladen
         document.getElementById('form-wrapper').style.display = 'none';
         document.getElementById('thank-you').style.display = 'block';
     }).catch(err => {
-        console.error("Fout bij verzenden:", err);
-        // Zelfs bij een error tonen we het succes scherm voor de bezoeker
+        console.error(err);
         document.getElementById('form-wrapper').style.display = 'none';
         document.getElementById('thank-you').style.display = 'block';
     });
