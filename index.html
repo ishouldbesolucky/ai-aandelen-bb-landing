@@ -20,7 +20,7 @@
             --card: rgba(15, 23, 42, 0.92);
             --primary: #3b82f6;
             --accent: #60a5fa;
-            --gold: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); /* Goud verloop */
+            --success: #10b981; /* Groen voor het laatste vinkje */
             --text: #f8fafc;
             --text-dim: #cbd5e1;
         }
@@ -103,13 +103,13 @@
             font-weight: 500;
         }
 
-        /* De standaard blauwe vinkjes */
+        /* De blauwe vinkjes */
         .benefits-list li::before {
             content: '✓';
             margin-right: 15px;
             width: 30px;
             height: 30px;
-            background: var(--primary);
+            background: var(--primary); /* Terug naar zakelijk blauw */
             color: #fff;
             display: flex;
             align-items: center;
@@ -120,12 +120,10 @@
             font-weight: 900;
         }
 
-        /* Het derde vinkje in goud effect */
+        /* Het laatste vinkje specifiek groen maken */
         .benefits-list li:last-child::before {
-            background: var(--gold) !important;
-            color: #4a3708; /* Donkere tekst op goud voor leesbaarheid */
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: var(--success) !important;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
         }
 
         .form-card {
@@ -180,11 +178,8 @@
 
         .success-icon {
             font-size: 5rem;
-            background: var(--gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--success);
             margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
         }
 
         /* Mobiele optimalisaties */
@@ -217,7 +212,7 @@
 
 <div class="container">
     <div class="hero-text">
-        <span class="badge">Gratis Research Rapport 2026</span>
+        <span class="badge">Gratis Rapport 2026</span>
         <h1>3 AI-Aandelen met Hypergroei</h1>
         <p>Vergeet Nvidia. Ontdek de 3 verborgen AI-parels die de volgende golf van beurssuccessen bepalen.</p>
         
