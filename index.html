@@ -17,9 +17,10 @@
     <style>
         :root {
             --bg: #05070a;
-            --card: rgba(15, 23, 42, 0.85);
+            --card: rgba(15, 23, 42, 0.9);
             --primary: #3b82f6;
             --accent: #60a5fa;
+            --success: #10b981;
             --text: #f8fafc;
             --text-dim: #cbd5e1;
         }
@@ -27,18 +28,17 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg);
-            /* De robot achtergrond afbeelding */
-            background-image: linear-gradient(rgba(5, 7, 10, 0.75), rgba(5, 7, 10, 0.85)), 
+            background-image: linear-gradient(rgba(5, 7, 10, 0.8), rgba(5, 7, 10, 0.85)), 
                               url('https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1600');
             background-size: cover;
-            background-position: center;
+            background-position: center top;
             background-attachment: fixed;
             color: var(--text);
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .container {
@@ -48,13 +48,15 @@
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            padding: 60px 0;
+            padding: 40px 0;
+            flex: 1;
         }
 
         .hero-text {
             flex: 1;
             min-width: 320px;
-            padding-right: 60px;
+            padding-right: 40px;
+            margin-bottom: 40px;
         }
 
         .badge {
@@ -63,29 +65,27 @@
             color: var(--accent);
             padding: 6px 16px;
             border-radius: 100px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
+            margin-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 24px;
         }
 
         .hero-text h1 {
-            font-size: 3.8rem;
+            font-size: clamp(2.5rem, 5vw, 3.8rem);
             font-weight: 900;
-            line-height: 1.05;
-            margin-bottom: 24px;
+            line-height: 1.1;
+            margin: 0 0 20px 0;
             background: linear-gradient(to right, #ffffff, var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero-text p {
-            font-size: 1.35rem;
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
             color: var(--text-dim);
-            margin-bottom: 40px;
-            max-width: 550px;
-            line-height: 1.6;
+            margin-bottom: 30px;
+            line-height: 1.5;
         }
 
         .benefits-list {
@@ -95,166 +95,153 @@
         }
 
         .benefits-list li {
-            margin-bottom: 18px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
-            font-size: 1.15rem;
-            font-weight: 500;
+            font-size: 1.1rem;
         }
 
         .benefits-list li::before {
             content: '✓';
-            margin-right: 15px;
-            width: 28px;
-            height: 28px;
-            background: rgba(59, 130, 246, 0.2);
-            color: var(--accent);
+            margin-right: 12px;
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            font-weight: 900;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        /* Het laatste vinkje specifiek groen maken */
+        .benefits-list li:last-child::before {
+            background: var(--success);
+            color: white;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
         }
 
         .form-card {
-            width: 420px;
+            width: 100%;
+            max-width: 420px;
             background: var(--card);
-            padding: 50px;
-            border-radius: 32px;
-            backdrop-filter: blur(12px);
+            padding: clamp(25px, 5vw, 45px);
+            border-radius: 24px;
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
-        h3 { font-size: 1.8rem; margin-top: 0; margin-bottom: 15px; font-weight: 800; }
+        h3 { font-size: 1.6rem; margin: 0 0 10px 0; font-weight: 800; }
 
         input[type="email"] {
             width: 100%;
-            padding: 20px;
-            background: rgba(10, 14, 20, 0.7);
-            border: 2px solid #2d3545;
-            border-radius: 14px;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #334155;
+            border-radius: 12px;
             color: white;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             font-size: 1rem;
             box-sizing: border-box;
-            transition: border-color 0.2s;
         }
-
-        input:focus { outline: none; border-color: var(--primary); }
 
         button {
             width: 100%;
-            padding: 22px;
+            padding: 18px;
             background: var(--primary);
             color: white;
             border: none;
-            border-radius: 14px;
+            border-radius: 12px;
             font-weight: 800;
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: 0.3s;
         }
 
-        button:hover {
-            background: #2563eb;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
-        }
+        button:hover { background: var(--accent); transform: translateY(-2px); }
 
-        .footer-note {
-            font-size: 0.8rem;
-            color: #64748b;
-            margin-top: 24px;
-            display: block;
-        }
+        #thank-you { display: none; text-align: center; }
 
-        #thank-you {
-            display: none;
-            text-align: center;
-        }
-
-        .success-icon {
-            font-size: 5rem;
-            color: #10b981;
-            margin-bottom: 20px;
+        /* Mobiele optimalisaties */
+        @media (max-width: 850px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 20px;
+            }
+            .hero-text {
+                padding-right: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .benefits-list li {
+                text-align: left;
+                width: 100%;
+                max-width: 300px;
+            }
+            .form-card {
+                margin-bottom: 40px;
+            }
         }
 
         iframe { display: none; }
-
-        @media (max-width: 950px) {
-            .container { flex-direction: column; text-align: center; padding: 40px 20px; }
-            .hero-text { padding-right: 0; margin-bottom: 50px; }
-            .hero-text h1 { font-size: 2.8rem; }
-            .form-card { width: 100%; }
-            .benefits-list li { justify-content: center; }
-        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="hero-text">
-        <span class="badge">Gratis Research Rapport 2026</span>
-        <h1>3 AI-Aandelen met Hypergroei</h1>
-        <p>Vergeet Nvidia. De volgende golf beurswinnaars komt van drie verborgen spelers die nu nog grotendeels onopgemerkt blijven.</p>
+        <span class="badge">Exclusief Beleggersonderzoek</span>
+        <h1>AI-Hypergroei Rapport 2026</h1>
+        <p>Ontdek de 3 verborgen AI-parels die de volgende golf van beurssuccessen bepalen.</p>
         
         <ul class="benefits-list">
             <li>Analyseren van de "Nvidia-moordenaars"</li>
-            <li>Exclusieve koersdoelen & marktdata</li>
-            <li>Directe PDF toegang in uw inbox</li>
+            <li>Exclusieve koersdoelen & data</li>
+            <li>Directe PDF toegang in uw mailbox</li>
         </ul>
     </div>
 
     <div class="form-card" id="form-container">
-        <h3>Direct Ontvangen</h3>
-        <p style="color: var(--text-dim); margin-bottom: 30px;">Vul uw e-mailadres in voor het rapport.</p>
+        <h3>Ontvang het Rapport</h3>
+        <p style="color: var(--text-dim); margin-bottom: 25px; font-size: 0.95rem;">Vul uw e-mailadres in voor directe toegang.</p>
         
-        <form class="js-cm-form" id="subForm" 
-              action="https://www.createsend.com/t/subscribeerror?description=" 
-              method="post" 
-              data-id="5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E"
-              target="hidden_iframe">
-            
-            <input class="js-cm-email-input" id="fieldEmail" name="cm-njduyik-njduyik" type="email" placeholder="E-mailadres..." required />
-            <button class="js-cm-submit-button" type="submit" id="submit-btn">Download Rapport</button>
+        <form class="js-cm-form" id="subForm" action="https://www.createsend.com/t/subscribeerror?description=" method="post" data-id="5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E" target="hidden_iframe">
+            <input class="js-cm-email-input" id="fieldEmail" name="cm-njduyik-njduyik" type="email" placeholder="Uw beste e-mailadres" required />
+            <button class="js-cm-submit-button" type="submit" id="submit-btn">Download PDF</button>
         </form>
-        <span class="footer-note">Uw gegevens zijn 100% veilig bij BeursBrink.</span>
     </div>
 
     <div id="thank-you" class="form-card">
-        <div class="success-icon">✓</div>
-        <h2>Aanvraag Gelukt!</h2>
-        <p>De koppeling is bevestigd. Het rapport wordt nu verzonden naar uw inbox.</p>
+        <h2 style="color: var(--success);">✓ Verzonden!</h2>
+        <p>Het rapport is onderweg naar uw inbox. Niets ontvangen? Check uw spam-folder.</p>
     </div>
 </div>
 
 <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
-
 <script type="text/javascript" src="https://js.createsend1.com/javascript/copypastesubscribeformlogic.js"></script>
 
 <script>
-    // URL samenstellen voor Campaign Monitor
     const form = document.getElementById('subForm');
     const dataId = form.getAttribute('data-id');
     form.action = form.action + dataId;
 
     form.addEventListener('submit', function() {
-        // Google Ads Tracking met Enhanced Conversions
         const emailValue = document.getElementById('fieldEmail').value;
         gtag('set', 'user_data', { "email": emailValue });
         gtag('event', 'conversion', { 'send_to': 'AW-979697475/cO-fCLfI3e0bEMP-k9MD' });
 
-        // Visuele feedback op de knop
-        const btn = document.getElementById('submit-btn');
-        btn.innerText = 'Verwerken...';
-        btn.disabled = true;
-
-        // Wissel naar bedankt scherm na verzending naar iframe
+        document.getElementById('submit-btn').innerText = 'Verwerken...';
+        
         setTimeout(() => {
             document.getElementById('form-container').style.display = 'none';
             document.getElementById('thank-you').style.display = 'block';
-        }, 1200);
+        }, 1000);
     });
 </script>
 
