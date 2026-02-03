@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI-Hypergroei Rapport 2026 | ai-aandelen.com</title>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-979697475"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-981098765"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'AW-979697475', { 'allow_enhanced_conversions': true });
+
+      // Belangrijk: config met de tag die Google Ads verwacht
+      gtag('config', 'AW-981098765', { 'allow_enhanced_conversions': true });
     </script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
@@ -20,7 +22,7 @@
             --card: rgba(15, 23, 42, 0.92);
             --primary: #3b82f6;
             --accent: #60a5fa;
-            --success: #10b981; /* Groen voor het laatste vinkje */
+            --gold: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --text: #f8fafc;
             --text-dim: #cbd5e1;
         }
@@ -103,13 +105,13 @@
             font-weight: 500;
         }
 
-        /* De blauwe vinkjes */
+        /* Blauwe vinkjes */
         .benefits-list li::before {
             content: '✓';
             margin-right: 15px;
             width: 30px;
             height: 30px;
-            background: var(--primary); /* Terug naar zakelijk blauw */
+            background: var(--primary);
             color: #fff;
             display: flex;
             align-items: center;
@@ -120,10 +122,12 @@
             font-weight: 900;
         }
 
-        /* Het laatste vinkje specifiek groen maken */
+        /* Gouden vinkje */
         .benefits-list li:last-child::before {
-            background: var(--success) !important;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+            background: var(--gold) !important;
+            color: #4a3708;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .form-card {
@@ -178,31 +182,18 @@
 
         .success-icon {
             font-size: 5rem;
-            color: var(--success);
+            background: var(--gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
         }
 
-        /* Mobiele optimalisaties */
         @media (max-width: 950px) {
-            .container {
-                flex-direction: column;
-                text-align: center;
-                padding-top: 20px;
-            }
-            .hero-text {
-                padding-right: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            .benefits-list li {
-                text-align: left;
-                width: 100%;
-                max-width: 340px;
-            }
-            .form-card {
-                margin-bottom: 60px;
-            }
+            .container { flex-direction: column; text-align: center; padding-top: 20px; }
+            .hero-text { padding-right: 0; display: flex; flex-direction: column; align-items: center; }
+            .benefits-list li { text-align: left; width: 100%; max-width: 340px; }
+            .form-card { margin-bottom: 60px; }
         }
 
         iframe { display: none; }
@@ -212,7 +203,7 @@
 
 <div class="container">
     <div class="hero-text">
-        <span class="badge">Gratis Rapport 2026</span>
+        <span class="badge">Gratis Research Rapport 2026</span>
         <h1>3 AI-Aandelen met Hypergroei</h1>
         <p>Vergeet Nvidia. Ontdek de 3 verborgen AI-parels die de volgende golf van beurssuccessen bepalen.</p>
         
@@ -250,8 +241,12 @@
 
     form.addEventListener('submit', function() {
         const emailValue = document.getElementById('fieldEmail').value;
+        
+        // BIJGEWERKT: Enhanced Conversions voor de nieuwe ID
         gtag('set', 'user_data', { "email": emailValue });
-        gtag('event', 'conversion', { 'send_to': 'AW-979697475/cO-fCLfI3e0bEMP-k9MD' });
+        
+        // Conversie event met de nieuwe ID
+        gtag('event', 'conversion', { 'send_to': 'AW-981098765/cO-fCLfI3e0bEMP-k9MD' });
 
         const btn = document.getElementById('submit-btn');
         btn.innerText = 'Verwerken...';
