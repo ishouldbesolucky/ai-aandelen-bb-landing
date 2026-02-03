@@ -11,7 +11,6 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      // Belangrijk: config met de tag die Google Ads verwacht
       gtag('config', 'AW-981098765', { 'allow_enhanced_conversions': true });
     </script>
 
@@ -22,7 +21,7 @@
             --card: rgba(15, 23, 42, 0.92);
             --primary: #3b82f6;
             --accent: #60a5fa;
-            --gold: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --success: #10b981; /* Het groene vinkje kleur */
             --text: #f8fafc;
             --text-dim: #cbd5e1;
         }
@@ -105,7 +104,7 @@
             font-weight: 500;
         }
 
-        /* Blauwe vinkjes */
+        /* Standaard blauwe vinkjes */
         .benefits-list li::before {
             content: '✓';
             margin-right: 15px;
@@ -122,12 +121,10 @@
             font-weight: 900;
         }
 
-        /* Gouden vinkje */
+        /* HET GROENE VINKJE (LAATSTE ITEM) */
         .benefits-list li:last-child::before {
-            background: var(--gold) !important;
-            color: #4a3708;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: var(--success) !important;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
         }
 
         .form-card {
@@ -182,11 +179,8 @@
 
         .success-icon {
             font-size: 5rem;
-            background: var(--gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--success);
             margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
         }
 
         @media (max-width: 950px) {
@@ -203,7 +197,7 @@
 
 <div class="container">
     <div class="hero-text">
-        <span class="badge">Gratis Research Rapport 2026</span>
+        <span class="badge">Gratis Rapport 2026</span>
         <h1>3 AI-Aandelen met Hypergroei</h1>
         <p>Vergeet Nvidia. Ontdek de 3 verborgen AI-parels die de volgende golf van beurssuccessen bepalen.</p>
         
@@ -242,10 +236,10 @@
     form.addEventListener('submit', function() {
         const emailValue = document.getElementById('fieldEmail').value;
         
-        // BIJGEWERKT: Enhanced Conversions voor de nieuwe ID
+        // Google Ads Enhanced Conversions met de nieuwe ID
         gtag('set', 'user_data', { "email": emailValue });
         
-        // Conversie event met de nieuwe ID
+        // Conversie event naar de juiste tag
         gtag('event', 'conversion', { 'send_to': 'AW-981098765/cO-fCLfI3e0bEMP-k9MD' });
 
         const btn = document.getElementById('submit-btn');
