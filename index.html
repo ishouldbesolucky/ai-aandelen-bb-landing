@@ -227,9 +227,8 @@
 <script type="text/javascript" src="https://js.createsend1.com/javascript/copypastesubscribeformlogic.js"></script>
 
 <script>
+    // NIET de form.action handmatig aanpassen — het CM-script doet dit zelf
     const form = document.getElementById('subForm');
-    const dataId = form.getAttribute('data-id');
-    form.action = form.action + dataId;
 
     form.addEventListener('submit', function() {
         const emailValue = document.getElementById('fieldEmail').value;
