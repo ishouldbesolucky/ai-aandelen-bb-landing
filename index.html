@@ -10,7 +10,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'AW-979697475', { 'allow_enhanced_conversions': true });
     </script>
 
@@ -173,6 +172,13 @@
             box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
         }
 
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
         #thank-you { display: none; text-align: center; }
 
         .success-icon {
@@ -181,14 +187,19 @@
             margin-bottom: 20px;
         }
 
+        .error-msg {
+            color: #f87171;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            display: none;
+        }
+
         @media (max-width: 950px) {
             .container { flex-direction: column; text-align: center; padding-top: 20px; }
             .hero-text { padding-right: 0; display: flex; flex-direction: column; align-items: center; }
             .benefits-list li { text-align: left; width: 100%; max-width: 340px; }
             .form-card { margin-bottom: 60px; }
         }
-
-        iframe { display: none; }
     </style>
 </head>
 <body>
@@ -210,9 +221,10 @@
         <h3>Ontvang het Rapport</h3>
         <p style="color: var(--text-dim); margin-bottom: 30px;">Vul uw e-mailadres in voor directe toegang.</p>
         
-        <form class="js-cm-form" id="subForm" action="https://www.createsend.com/t/subscribeerror?description=" method="post" data-id="5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E" target="hidden_iframe">
-            <input class="js-cm-email-input" id="fieldEmail" name="cm-njduyik-njduyik" type="email" placeholder="Uw e-mailadres..." required />
-            <button class="js-cm-submit-button" type="submit" id="submit-btn">Download PDF</button>
+        <form id="subForm">
+            <input id="fieldEmail" type="email" placeholder="Uw e-mailadres..." required />
+            <p class="error-msg" id="error-msg"></p>
+            <button type="submit" id="submit-btn">Download PDF</button>
         </form>
     </div>
 
@@ -223,34 +235,70 @@
     </div>
 </div>
 
-<iframe name="hidden_iframe" id="hidden_iframe"></iframe>
-<script type="text/javascript" src="https://js.createsend1.com/javascript/copypastesubscribeformlogic.js"></script>
-
 <script>
-    // NIET de form.action handmatig aanpassen — het CM-script doet dit zelf
-    const form = document.getElementById('subForm');
+    /*
+     * ============================================================
+     *  BELANGRIJK — CONFIGURATIE
+     * ============================================================
+     *  Dit formulier omzeilt CM's ingebouwde reCAPTCHA door de
+     *  Campaign Monitor API aan te roepen via een serverless proxy.
+     *
+     *  STAP 1: Deploy de Cloudflare Worker (zie worker.js)
+     *  STAP 2: Vervang de URL hieronder met jouw Worker URL
+     * ============================================================
+     */
+    const API_ENDPOINT = 'https://ai-aandelen-bb-subscribe.nico-pantelis.workers.dev/subscribe';
 
-    form.addEventListener('submit', function() {
-        const emailValue = document.getElementById('fieldEmail').value;
-        
+    const form = document.getElementById('subForm');
+    const btn = document.getElementById('submit-btn');
+    const errorMsg = document.getElementById('error-msg');
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const email = document.getElementById('fieldEmail').value.trim();
+        if (!email) return;
+
+        // UI: loading state
+        btn.innerText = 'Verwerken...';
+        btn.disabled = true;
+        errorMsg.style.display = 'none';
+
         // Google Ads Enhanced Conversions
-        gtag('set', 'user_data', { "email": emailValue });
-        
-        // Conversie event met NIEUWE tag
+        gtag('set', 'user_data', { "email": email });
         gtag('event', 'conversion', {
             'send_to': 'AW-979697475/ZYWdCMSx_fIbEMP-k9MD',
             'value': 1.0,
             'currency': 'EUR'
         });
 
-        const btn = document.getElementById('submit-btn');
-        btn.innerText = 'Verwerken...';
-        btn.disabled = true;
-        
-        setTimeout(() => {
-            document.getElementById('form-container').style.display = 'none';
-            document.getElementById('thank-you').style.display = 'block';
-        }, 1200);
+        try {
+            const res = await fetch(API_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                // Succes — toon bedankscherm
+                document.getElementById('form-container').style.display = 'none';
+                document.getElementById('thank-you').style.display = 'block';
+            } else {
+                // CM API fout (bv. al geabonneerd, ongeldig e-mail)
+                errorMsg.textContent = data.Message || 'Er ging iets mis. Probeer het opnieuw.';
+                errorMsg.style.display = 'block';
+                btn.innerText = 'Download PDF';
+                btn.disabled = false;
+            }
+        } catch (err) {
+            // Netwerk- of serverfout
+            errorMsg.textContent = 'Verbindingsfout. Probeer het later opnieuw.';
+            errorMsg.style.display = 'block';
+            btn.innerText = 'Download PDF';
+            btn.disabled = false;
+        }
     });
 </script>
 
