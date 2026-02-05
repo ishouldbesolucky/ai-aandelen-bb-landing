@@ -224,46 +224,34 @@
 </div>
 
 <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
-
-<!-- Campaign Monitor script TERUG — dit bouwt de juiste submit-URL -->
 <script type="text/javascript" src="https://js.createsend1.com/javascript/copypastesubscribeformlogic.js"></script>
 
 <script>
     const form = document.getElementById('subForm');
-    const btn = document.getElementById('submit-btn');
-    const emailField = document.getElementById('fieldEmail');
+    const dataId = form.getAttribute('data-id');
+    form.action = form.action + dataId;
 
-    // Luister naar de hidden iframe load event — dat is het moment dat CM klaar is
-    const hiddenIframe = document.getElementById('hidden_iframe');
-
-    // Onderschep de form submit NADAT het CM-script zijn URL heeft opgebouwd
-    // We gebruiken een click handler op de button die EERST de gtag vuurt,
-    // en dan het CM-script zijn werk laat doen
-    btn.addEventListener('click', function(e) {
-        const emailValue = emailField.value;
-        if (!emailValue || !emailField.validity.valid) {
-            return; // Laat de browser validatie tonen
-        }
-
-        // Verander knoptekst
-        btn.innerText = 'Verwerken...';
-
-        // Stuur Enhanced Conversions user data
+    form.addEventListener('submit', function() {
+        const emailValue = document.getElementById('fieldEmail').value;
+        
+        // Google Ads Enhanced Conversions
         gtag('set', 'user_data', { "email": emailValue });
-
-        // Vuur de conversie — dit is asynchroon, maar we blokkeren het formulier NIET
+        
+        // Conversie event met NIEUWE tag
         gtag('event', 'conversion', {
             'send_to': 'AW-979697475/ZYWdCMSx_fIbEMP-k9MD',
             'value': 1.0,
             'currency': 'EUR'
         });
 
-        // LAAT het formulier gewoon doorgaan — het CM-script handelt de submit af
-        // We tonen het bedankscherm na een korte delay
-        setTimeout(function() {
+        const btn = document.getElementById('submit-btn');
+        btn.innerText = 'Verwerken...';
+        btn.disabled = true;
+        
+        setTimeout(() => {
             document.getElementById('form-container').style.display = 'none';
             document.getElementById('thank-you').style.display = 'block';
-        }, 1500);
+        }, 1200);
     });
 </script>
 
