@@ -210,9 +210,10 @@
         <h3>Ontvang het Rapport</h3>
         <p style="color: var(--text-dim); margin-bottom: 30px;">Vul uw e-mailadres in voor directe toegang.</p>
         
-        <form class="js-cm-form" id="subForm" action="https://www.createsend.com/t/subscribeerror?description=" method="post" data-id="5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E" target="hidden_iframe">
-            <input class="js-cm-email-input" id="fieldEmail" name="cm-njduyik-njduyik" type="email" placeholder="Uw e-mailadres..." required />
-            <button class="js-cm-submit-button" type="submit" id="submit-btn">Download PDF</button>
+        <!-- Formulier zonder submit-event — we gebruiken de knop click in plaats daarvan -->
+        <form id="subForm" action="https://www.createsend.com/t/subscribeerror?description=5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E" method="post" target="hidden_iframe">
+            <input id="fieldEmail" name="cm-njduyik-njduyik" type="email" placeholder="Uw e-mailadres..." required />
+            <button type="button" id="submit-btn">Download PDF</button>
         </form>
     </div>
 
@@ -224,58 +225,58 @@
 </div>
 
 <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
-<script type="text/javascript" src="https://js.createsend1.com/javascript/copypastesubscribeformlogic.js"></script>
+
+<!-- GEEN Campaign Monitor script meer — wij handelen alles zelf af -->
 
 <script>
     const form = document.getElementById('subForm');
-    const dataId = form.getAttribute('data-id');
-    form.action = form.action + dataId;
+    const btn = document.getElementById('submit-btn');
+    const emailField = document.getElementById('fieldEmail');
 
-    // Vlag om dubbele submits te voorkomen
-    let formSubmitted = false;
+    let isSubmitting = false;
 
-    form.addEventListener('submit', function(e) {
-        // Voorkom de standaard form submit — wij bepalen het moment
-        e.preventDefault();
+    btn.addEventListener('click', function() {
+        // Valideer het e-mailadres
+        if (!emailField.value || !emailField.validity.valid) {
+            emailField.reportValidity();
+            return;
+        }
 
-        if (formSubmitted) return;
-        formSubmitted = true;
+        if (isSubmitting) return;
+        isSubmitting = true;
 
-        const emailValue = document.getElementById('fieldEmail').value;
-        const btn = document.getElementById('submit-btn');
         btn.innerText = 'Verwerken...';
         btn.disabled = true;
+
+        const emailValue = emailField.value;
 
         // Stap 1: Enhanced Conversions user data instellen
         gtag('set', 'user_data', { "email": emailValue });
 
-        // Stap 2: Conversie event versturen met de NIEUWE tag
+        // Stap 2: Conversie event versturen
         gtag('event', 'conversion', {
             'send_to': 'AW-979697475/ZYWdCMSx_fIbEMP-k9MD',
             'value': 1.0,
             'currency': 'EUR',
             'event_callback': function() {
-                // Google-hit is succesvol verstuurd — nu pas het formulier submitten
-                submitFormAndShowThankYou();
+                doSubmit();
             }
         });
 
-        // Stap 3: Fallback — als de callback niet vuurt (bv. adblocker),
-        // submit het formulier na 1.5 seconden alsnog
+        // Stap 3: Fallback na 1.5s (bv. adblocker blokkeert Google)
         setTimeout(function() {
-            submitFormAndShowThankYou();
+            doSubmit();
         }, 1500);
     });
 
-    function submitFormAndShowThankYou() {
-        // Voorkom dat dit dubbel wordt uitgevoerd (callback + timeout)
-        if (submitFormAndShowThankYou.done) return;
-        submitFormAndShowThankYou.done = true;
+    function doSubmit() {
+        if (doSubmit.done) return;
+        doSubmit.done = true;
 
-        // Verstuur het formulier naar Campaign Monitor via de hidden iframe
+        // Verstuur het formulier naar Campaign Monitor via hidden iframe
         form.submit();
 
-        // Toon het bedankscherm na een korte vertraging
+        // Toon bedankscherm
         setTimeout(function() {
             document.getElementById('form-container').style.display = 'none';
             document.getElementById('thank-you').style.display = 'block';
