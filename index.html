@@ -21,7 +21,7 @@
             --card: rgba(15, 23, 42, 0.92);
             --primary: #3b82f6;
             --accent: #60a5fa;
-            --success: #10b981; /* Het groene vinkje kleur */
+            --success: #10b981;
             --text: #f8fafc;
             --text-dim: #cbd5e1;
         }
@@ -104,7 +104,6 @@
             font-weight: 500;
         }
 
-        /* Standaard blauwe vinkjes */
         .benefits-list li::before {
             content: '✓';
             margin-right: 15px;
@@ -121,7 +120,6 @@
             font-weight: 900;
         }
 
-        /* HET GROENE VINKJE (LAATSTE ITEM) */
         .benefits-list li:last-child::before {
             background: var(--success) !important;
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
@@ -233,24 +231,54 @@
     const dataId = form.getAttribute('data-id');
     form.action = form.action + dataId;
 
-    form.addEventListener('submit', function() {
-        const emailValue = document.getElementById('fieldEmail').value;
-        
-        // Google Ads Enhanced Conversions met de nieuwe ID
-        gtag('set', 'user_data', { "email": emailValue });
-        
-        // Conversie event naar de juiste tag
-        gtag('event', 'conversion', { 'send_to': 'AW-981098765/cO-fCLfI3e0bEMP-k9MD' });
+    // Vlag om dubbele submits te voorkomen
+    let formSubmitted = false;
 
+    form.addEventListener('submit', function(e) {
+        // Voorkom de standaard form submit — wij bepalen het moment
+        e.preventDefault();
+
+        if (formSubmitted) return;
+        formSubmitted = true;
+
+        const emailValue = document.getElementById('fieldEmail').value;
         const btn = document.getElementById('submit-btn');
         btn.innerText = 'Verwerken...';
         btn.disabled = true;
-        
-        setTimeout(() => {
+
+        // Stap 1: Enhanced Conversions user data instellen
+        gtag('set', 'user_data', { "email": emailValue });
+
+        // Stap 2: Conversie event versturen met callback
+        gtag('event', 'conversion', {
+            'send_to': 'AW-981098765/cO-fCLfI3e0bEMP-k9MD',
+            'event_callback': function() {
+                // Google-hit is succesvol verstuurd — nu pas het formulier submitten
+                submitFormAndShowThankYou();
+            }
+        });
+
+        // Stap 3: Fallback — als de callback niet vuurt (bv. adblocker),
+        // submit het formulier na 1.5 seconden alsnog
+        setTimeout(function() {
+            submitFormAndShowThankYou();
+        }, 1500);
+    });
+
+    function submitFormAndShowThankYou() {
+        // Voorkom dat dit dubbel wordt uitgevoerd (callback + timeout)
+        if (submitFormAndShowThankYou.done) return;
+        submitFormAndShowThankYou.done = true;
+
+        // Verstuur het formulier naar Campaign Monitor via de hidden iframe
+        form.submit();
+
+        // Toon het bedankscherm na een korte vertraging
+        setTimeout(function() {
             document.getElementById('form-container').style.display = 'none';
             document.getElementById('thank-you').style.display = 'block';
-        }, 1200);
-    });
+        }, 800);
+    }
 </script>
 
 </body>
