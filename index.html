@@ -210,10 +210,9 @@
         <h3>Ontvang het Rapport</h3>
         <p style="color: var(--text-dim); margin-bottom: 30px;">Vul uw e-mailadres in voor directe toegang.</p>
         
-        <!-- Formulier zonder submit-event — we gebruiken de knop click in plaats daarvan -->
-        <form id="subForm" action="https://www.createsend.com/t/subscribeerror?description=5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E" method="post" target="hidden_iframe">
-            <input id="fieldEmail" name="cm-njduyik-njduyik" type="email" placeholder="Uw e-mailadres..." required />
-            <button type="button" id="submit-btn">Download PDF</button>
+        <form class="js-cm-form" id="subForm" action="https://www.createsend.com/t/subscribeerror?description=" method="post" data-id="5B5E7037DA78A748374AD499497E309EABDBA925F6ED6EA6B57AFC32A4928571BCF150ABA471ACE0765451171BC889905AC5D5DED41257C2DA20E729D355638E" target="hidden_iframe">
+            <input class="js-cm-email-input" id="fieldEmail" name="cm-njduyik-njduyik" type="email" placeholder="Uw e-mailadres..." required />
+            <button class="js-cm-submit-button" type="submit" id="submit-btn">Download PDF</button>
         </form>
     </div>
 
@@ -226,62 +225,46 @@
 
 <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
 
-<!-- GEEN Campaign Monitor script meer — wij handelen alles zelf af -->
+<!-- Campaign Monitor script TERUG — dit bouwt de juiste submit-URL -->
+<script type="text/javascript" src="https://js.createsend1.com/javascript/copypastesubscribeformlogic.js"></script>
 
 <script>
     const form = document.getElementById('subForm');
     const btn = document.getElementById('submit-btn');
     const emailField = document.getElementById('fieldEmail');
 
-    let isSubmitting = false;
+    // Luister naar de hidden iframe load event — dat is het moment dat CM klaar is
+    const hiddenIframe = document.getElementById('hidden_iframe');
 
-    btn.addEventListener('click', function() {
-        // Valideer het e-mailadres
-        if (!emailField.value || !emailField.validity.valid) {
-            emailField.reportValidity();
-            return;
+    // Onderschep de form submit NADAT het CM-script zijn URL heeft opgebouwd
+    // We gebruiken een click handler op de button die EERST de gtag vuurt,
+    // en dan het CM-script zijn werk laat doen
+    btn.addEventListener('click', function(e) {
+        const emailValue = emailField.value;
+        if (!emailValue || !emailField.validity.valid) {
+            return; // Laat de browser validatie tonen
         }
 
-        if (isSubmitting) return;
-        isSubmitting = true;
-
+        // Verander knoptekst
         btn.innerText = 'Verwerken...';
-        btn.disabled = true;
 
-        const emailValue = emailField.value;
-
-        // Stap 1: Enhanced Conversions user data instellen
+        // Stuur Enhanced Conversions user data
         gtag('set', 'user_data', { "email": emailValue });
 
-        // Stap 2: Conversie event versturen
+        // Vuur de conversie — dit is asynchroon, maar we blokkeren het formulier NIET
         gtag('event', 'conversion', {
             'send_to': 'AW-979697475/ZYWdCMSx_fIbEMP-k9MD',
             'value': 1.0,
-            'currency': 'EUR',
-            'event_callback': function() {
-                doSubmit();
-            }
+            'currency': 'EUR'
         });
 
-        // Stap 3: Fallback na 1.5s (bv. adblocker blokkeert Google)
-        setTimeout(function() {
-            doSubmit();
-        }, 1500);
-    });
-
-    function doSubmit() {
-        if (doSubmit.done) return;
-        doSubmit.done = true;
-
-        // Verstuur het formulier naar Campaign Monitor via hidden iframe
-        form.submit();
-
-        // Toon bedankscherm
+        // LAAT het formulier gewoon doorgaan — het CM-script handelt de submit af
+        // We tonen het bedankscherm na een korte delay
         setTimeout(function() {
             document.getElementById('form-container').style.display = 'none';
             document.getElementById('thank-you').style.display = 'block';
-        }, 800);
-    }
+        }, 1500);
+    });
 </script>
 
 </body>
